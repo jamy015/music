@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>🎵 MHBR Music</title>
+        <link href="fonts.css" rel="stylesheet">
+        <style>
+            html, body {
+                height: 100%;
+            }
+            
+            body {
+                font-family: DotGothic16, "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR";
+                /* font-family: "Noto Sans", "Noto Sans CJK JP", "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR"; */
+                font-size: 1.5rem;
+                text-align: center;
+                margin: 0;
+            }
+            
+            body > * {
+                width: 100%;
+            }
+            
+            #font_btn {
+                position: absolute;
+                width: 10rem;
+                right: 0.5rem;
+                border: none;
+                margin: 0;
+                padding: 0;
+                background: transparent;
+                font: inherit;
+            }
+            
+            #header {
+                padding-top: 2rem;
+                padding-bottom: 3rem;
+            }
+            
+            #header > * {
+                display: block;
+            }
+            
+            #header > span {
+                width: 90%;
+                margin: 0 auto;
+            }
+            
+            #header strong {
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            #pull_btn {
+                font: inherit;
+                width: 10rem;
+            }
+            
+            #video {
+                padding-top: 2rem;
+            }
+            
+            #videoinfo {
+                line-height: 1.2;
+                min-height: 2.75em;
+            }
+            
+            iframe {
+                border: none;
+                width: 61.6rem;
+                max-width: 100%;
+                /* height controlled by resizeVideo() JS function to keep 16:9 aspect ratio */
+                margin-top: 0.05em;
+            }
+        </style>
+        <script>
+            "use strict";
+            
+            function resizeVideo(element) {
+                element.style.height = (getComputedStyle(element).width.slice(0, -2) / (16 / 9)) + 'px';
+            }
+            
+            window.addEventListener('DOMContentLoaded', () => {
+                window.addEventListener('resize', () => {
+                    resizeVideo(document.getElementById('embed'));
+                })
+                
+                const vidDiv = document.getElementById('video');                
+                fetch('videos.json').then(response => {
+                    if (!response.ok) {
+                        throw new Error('videos file 🅱roke');
+                    }
+                    return response.json();
+                }).then(json => {
+                    if (json.length === 0) {
+                        throw new Error('json array length 🅱roke');
+                    }
+                    
+                    const index = Math.round(Math.random() * (json.length - 1));
+                    console.log('video ' + index);
+                    const vid = json[index];
+                    console.log(vid);
+                    
+                    const info = document.getElementById('videoinfo');
+                    const date = vid.upload_date.slice(0, 4) + '-' + vid.upload_date.slice(4, 6) + '-' + vid.upload_date.slice(6, 8);
+                    info.innerHTML = `${vid.title}<br>Uploaded <strong>${date}</strong> by <strong>${vid.uploader}</strong>`;
+                    
+                    if (json[index].flashing_images && !confirm(json[index].title + '\nWARNING: Flashing images.\nContinue?')) {
+                        info.innerHTML += '<br><br>❌ Playback cancelled.'
+                    } else {
+                        const iframe = document.getElementById('embed');
+                        resizeVideo(iframe);
+                        iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${vid.id}?autoplay=1&cc_load_policy=1`);
+                    }
+                }).catch(error => {
+                    const info = document.getElementById('videoinfo');
+                    info.innerText = error;
+                    console.error(error);
+                });
+            });
+            
+            function changeFont() { // event listener called from #font_btn
+                let curFont = getComputedStyle(document.body).fontFamily;
+                if (curFont.includes("DotGothic16")) {
+                    document.body.style.fontFamily = '"Noto Sans", "Noto Sans CJK JP", "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR"';
+                } else {
+                    document.body.style.fontFamily = 'DotGothic16, "Noto Sans CJK SC", "Noto Sans CJK TC", "Noto Sans CJK KR"'
+                }
+                console.log(getComputedStyle(document.body).fontFamily);
+            }
+        </script>
+    </head>
+    <body>
+        <button id="font_btn" type="button" onclick="changeFont()">[change font]</button>
+        
+        <div id="header">
+            <strong>Welcome to the mhbr.nl Throwback Music Player!</strong>
+            <span>Click the button to get a new song from my favorites. From hip-hop to VOCALOID (and a few memes), anything is possible. (For the best experience, allow autoplay in your browser.)</span>
+        </div>
+        
+        <button id="pull_btn" type="button" onclick="location.reload(true)">Pull again!</button>
+        
+        <div id="video">
+            <div id="videoinfo">Loading...</div>
+            <iframe id="embed" allow="autoplay;clipboard-write;encrypted-media;fullscreen;picture-in-picture"></iframe>
+            <!-- YouTube says we also need to give accelerometer and gyroscope permissions - it works fine without though?! -->
+            <!-- However, it doesn't work when sandboxing the iframe... sneaky google making sure they can place their tracking cookies. -->
+        </div>
+    </body>
+</html>

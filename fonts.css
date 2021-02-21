@@ -1,0 +1,79 @@
+/* Font Licenses: SIL Open Font License
+   see fonts/OFL.txt */
+
+@font-face {
+    font-family: 'DotGothic16';
+    src: url('fonts/DotGothic16-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('fonts/NotoSans-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('fonts/NotoSans-Bold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Noto Sans CJK JP';
+    src: url('fonts/NotoSansCJKjp-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Noto Sans CJK JP';
+    src: url('fonts/NotoSansCJKjp-Bold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Noto Sans CJK KR';
+    src: url('fonts/NotoSansCJKkr-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Noto Sans CJK KR';
+    src: url('fonts/NotoSansCJKkr-Bold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Noto Sans CJK SC';
+    src: url('fonts/NotoSansCJKsc-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Noto Sans CJK SC';
+    src: url('fonts/NotoSansCJKsc-Bold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Noto Sans CJK TC';
+    src: url('fonts/NotoSansCJKtc-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Noto Sans CJK TC';
+    src: url('fonts/NotoSansCJKtc-Bold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 700;
+}
